@@ -3,21 +3,18 @@ import { Breadcrumb, Flex, Layout, theme,Row, Col } from "antd";
 import { SideBar } from "../SideBar";
 import { MainHeader } from "../MainHeader";
 import ThemeContext from "../Context/ThemeContext";
-import { SearchCandidate } from "../modules/SearchCandidate";
-import { UploadCandidate } from "../modules/UploadCandidate";
+import { AIScreening } from "../modules/AIScreening";
 
 const { Content, Footer } = Layout;
 
 const breadCrumbsItems = new Map<string, any>([
   ["1", [{ title: "AI Screening" }]],
   ["2", [{ title: "AI Screening" }, { title: "Search" }]],
-  ["3", [{ title: "AI Screening" }, { title: "Upload Candidates" }]],
 ]);
 
 const componentsItemsView = new Map<string, any>([
   ["1", []],
-  ["2", [SearchCandidate()]],
-  ["3", [UploadCandidate()]],
+  ["2", [AIScreening()]],
 ]);
 
 const layoutStyle = {

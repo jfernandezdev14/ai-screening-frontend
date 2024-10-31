@@ -28,6 +28,17 @@ const columns: TableProps<DataType>['columns'] = [
         key: 'experience',
     },
     {
+        title: 'Education',
+        dataIndex: 'education',
+        key: 'education',
+    },
+    {
+        title: 'Certifications',
+        dataIndex: 'certifications',
+        key: 'certifications',
+    },
+
+    {
         title: 'Scores',
         key: 'scores',
         dataIndex: 'scores',
