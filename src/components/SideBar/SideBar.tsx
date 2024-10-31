@@ -37,7 +37,6 @@ const items: MenuItem[] = [
   getItem("AI Screening", "1", <TeamOutlined />,
     [
       getItem(<Link to="/search">Search</Link>, "2", <SearchOutlined />),
-      getItem(<Link to="/upload">Upload Candidates</Link>, "3",<CloudUploadOutlined />),
     ]
   ),
 ];
@@ -80,7 +79,8 @@ export function SideBar(props: SideBarProps) {
         <Menu
           theme={customTheme}
           mode="inline"
-          defaultSelectedKeys={["1"]}
+          defaultSelectedKeys={["2"]}
+          defaultOpenKeys={["1"]}
           items={items}
           selectedKeys={[props.current]}
           onClick={onClick}

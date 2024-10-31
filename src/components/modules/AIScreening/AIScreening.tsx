@@ -1,13 +1,9 @@
 import React from 'react'
-import {
-    Select,
-    Splitter,
-    Layout,
-} from 'antd'
+import { Splitter, Layout, Space } from 'antd'
 import { CandidateScores } from '../CandidateScores'
 import { API_URL } from '../../../constants'
 import { UploadCandidate } from '../UploadCandidate'
-
+import { SearchCandidate } from '../SearchCandidate'
 
 const evaluateCandidates = async (values: any) => {
     const api_endpoint_url = API_URL + '/'
@@ -43,18 +39,15 @@ export function AIScreening() {
                 }}
             >
                 <Splitter.Panel min="20%" defaultSize="20%" resizable={false}>
-                    <Splitter layout="vertical">
-                        <Splitter.Panel
-                            min="40%"
-                            defaultSize="40%"
-                            resizable={false}
-                        >
-                            <AIScreening />
-                        </Splitter.Panel>
-                        <Splitter.Panel>
-                            <UploadCandidate />
-                        </Splitter.Panel>
-                    </Splitter>
+                    <Space
+                        direction="vertical"
+                        size="middle"
+                        style={{ display: 'flex' }}
+                    >
+                        <SearchCandidate />
+
+                        <UploadCandidate />
+                    </Space>
                 </Splitter.Panel>
                 <Splitter.Panel>
                     <CandidateScores />

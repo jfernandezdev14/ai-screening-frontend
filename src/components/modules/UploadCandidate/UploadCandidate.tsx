@@ -70,6 +70,29 @@ export function UploadCandidate() {
                     style={{ maxWidth: 600 }}
                 >
                     <Form.Item
+                        name="model"
+                        label="Please select the model that will score the candidates:"
+                        rules={[
+                            {
+                                required: true,
+                                message: 'Select the model',
+                            },
+                        ]}
+                    >
+                        <Select placeholder="Select the models">
+                            <Option value="nearest_neighbors">
+                                Model 1 | Nearest Neighbors
+                            </Option>
+                            <Option value="random_forest">
+                                Model 2 | Random Forest
+                            </Option>
+                            <Option value="neural_network">
+                                Model 3 | Neural Network
+                            </Option>
+                        </Select>
+                    </Form.Item>
+
+                    <Form.Item
                         name="upload_candidate"
                         label="Upload a job description:"
                         valuePropName="fileList"
@@ -87,7 +110,7 @@ export function UploadCandidate() {
                         </Upload>
                     </Form.Item>
 
-                    <Form.Item label="Dragger">
+                    <Form.Item label="">
                         <Form.Item
                             name="dragger"
                             valuePropName="fileList"
