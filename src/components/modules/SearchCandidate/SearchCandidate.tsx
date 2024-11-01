@@ -13,12 +13,12 @@ import { API_URL } from '../../../constants'
 const { Option } = Select
 
 const evaluateCandidates = async (values: any) => {
-    const api_endpoint_url = API_URL + '/'
+    const api_endpoint_url = API_URL + '/api/v1/candidates'
     const requestBody = {
         selection_criteria: values.selection_criteria,
         model: values.model,
     }
-    const response = await fetch('/api/users', {
+    const response = await fetch(api_endpoint_url, {
         method: 'GET',
         body: JSON.stringify(requestBody),
         headers: {
@@ -39,7 +39,7 @@ export function SearchCandidate() {
     return (
         <Flex justify="center" align="center" vertical>
             <Card
-                title="Search Job Candidates"
+                title="Search by Role Description"
                 bordered={false}
                 style={{ width: 400, padding: 24 }}
             >

@@ -36,7 +36,7 @@ function getItem(
 const items: MenuItem[] = [
   getItem("AI Screening", "1", <TeamOutlined />,
     [
-      getItem(<Link to="/search">Search</Link>, "2", <SearchOutlined />),
+      getItem(<Link to="/search">Search Candidate</Link>, "2", <SearchOutlined />),
     ]
   ),
 ];

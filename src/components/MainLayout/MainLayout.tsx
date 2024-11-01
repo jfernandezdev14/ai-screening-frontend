@@ -9,7 +9,7 @@ const { Content, Footer } = Layout;
 
 const breadCrumbsItems = new Map<string, any>([
   ["1", [{ title: "AI Screening" }]],
-  ["2", [{ title: "AI Screening" }, { title: "Search" }]],
+  ["2", [{ title: "AI Screening" }, { title: "Search Candidate" }]],
 ]);
 
 const componentsItemsView = new Map<string, any>([

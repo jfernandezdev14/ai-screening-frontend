@@ -21,12 +21,12 @@ const formItemLayout = {
 }
 
 const uploadCandidates = async (values: any) => {
-    const api_endpoint_url = API_URL + '/'
+    const api_endpoint_url = API_URL + '/api/v1/candidates'
     const requestBody = {
         selection_criteria: values.selection_criteria,
         model: values.model,
     }
-    const response = await fetch('/api/users', {
+    const response = await fetch(api_endpoint_url, {
         method: 'POST',
         body: JSON.stringify(requestBody),
         headers: {
@@ -47,13 +47,14 @@ const normFile = (e: any) => {
 
 const onFinish = (values: any) => {
     console.log('Received values of form: ', values)
+    uploadCandidates(values)
 }
 
 export function UploadCandidate() {
     return (
         <Flex justify="center" align="center" vertical>
             <Card
-                title="Upload Job Description "
+                title="Search by PDF Document"
                 bordered={false}
                 style={{ width: 400, padding: 24 }}
             >
