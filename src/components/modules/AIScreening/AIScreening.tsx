@@ -1,34 +1,12 @@
-import React from 'react'
+import {  createContext, useContext, useState } from 'react'
 import { Splitter, Layout, Space } from 'antd'
 import { CandidateScores } from '../CandidateScores'
-import { API_URL } from '../../../constants'
 import { UploadCandidate } from '../UploadCandidate'
 import { SearchCandidate } from '../SearchCandidate'
 
-const evaluateCandidates = async (values: any) => {
-    const api_endpoint_url = API_URL + '/'
-    const requestBody = {
-        selection_criteria: values.selection_criteria,
-        model: values.model,
-    }
-    const response = await fetch('/api/users', {
-        method: 'GET',
-        body: JSON.stringify(requestBody),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    const data = await response.json()
-    return data
-}
 
-const onFinish = async (values: any) => {
-    console.log('Received values of form: ', values)
-    let response = await evaluateCandidates(values)
-    console.log(response)
-}
+export function AIScreening(): JSX.Element {
 
-export function AIScreening() {
     return (
         <Layout style={{ minHeight: '100%', height: '100%' }}>
             <Splitter
@@ -46,11 +24,13 @@ export function AIScreening() {
                     >
                         <SearchCandidate />
 
-                        <UploadCandidate />
+                        <UploadCandidate/>
                     </Space>
                 </Splitter.Panel>
                 <Splitter.Panel>
-                    <CandidateScores />
+                    <CandidateScores
+
+                     />
                 </Splitter.Panel>
             </Splitter>
         </Layout>

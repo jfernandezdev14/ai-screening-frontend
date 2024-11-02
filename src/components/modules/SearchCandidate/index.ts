@@ -1,1 +1,1 @@
-export { default as SearchCandidate } from "./SearchCandidate";
+export { default as SearchCandidate } from './SearchCandidate'

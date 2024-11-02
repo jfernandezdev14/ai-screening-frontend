@@ -1,6 +1,6 @@
-import React, {Dispatch} from "react";
-import {Button, Layout} from "antd";
-import {MenuFoldOutlined, MenuUnfoldOutlined} from "@ant-design/icons";
+import React, { Dispatch } from 'react'
+import { Button, Layout } from 'antd'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons'
 
 interface MainHeaderProps {
     colorBgContainer: string
@@ -8,14 +8,20 @@ interface MainHeaderProps {
     setCollapsed: Dispatch<boolean>
 }
 
-const {Header} = Layout;
+const { Header } = Layout
 
 export function MainHeader(props: MainHeaderProps) {
     return (
-        <Header style={{padding: 0, background: props.colorBgContainer}}>
+        <Header style={{ padding: 0, background: props.colorBgContainer }}>
             <Button
                 type="text"
-                icon={props.collapsed ? <MenuUnfoldOutlined/> : <MenuFoldOutlined/>}
+                icon={
+                    props.collapsed ? (
+                        <MenuUnfoldOutlined />
+                    ) : (
+                        <MenuFoldOutlined />
+                    )
+                }
                 onClick={() => props.setCollapsed(!props.collapsed)}
                 style={{
                     fontSize: '16px',

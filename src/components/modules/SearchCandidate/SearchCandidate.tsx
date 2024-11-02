@@ -1,41 +1,41 @@
-import React from 'react'
-import {
-    Button,
-    Form,
-    Input,
-    Select,
-    Space,
-    Flex,
-    Card,
-} from 'antd'
-import { API_URL } from '../../../constants'
+import { Button, Form, Input, Select, Space, Flex, Card } from 'antd'
+import { LOCAL, LOCAL_API_URL, API_URL } from '../../../constants'
+import { useDataContext } from '../../MainLayout/MainLayout'
+import { PredictionCandidate } from '../CandidateScores/CandidateScores'
 
 const { Option } = Select
 
-const evaluateCandidates = async (values: any) => {
-    const api_endpoint_url = API_URL + '/api/v1/candidates'
-    const requestBody = {
-        selection_criteria: values.selection_criteria,
-        model: values.model,
-    }
-    const response = await fetch(api_endpoint_url, {
-        method: 'GET',
-        body: JSON.stringify(requestBody),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    const data = await response.json()
-    return data
-}
-
-const onFinish = async (values: any) => {
-    console.log('Received values of form: ', values)
-    let response = await evaluateCandidates(values)
-    console.log(response)
-}
-
 export function SearchCandidate() {
+    const {setData} = useDataContext()
+
+    const evaluateCandidates = async (values: any) => {
+        var api_url = API_URL + '/api/v1/engines'
+        if (LOCAL === true) {
+            api_url = LOCAL_API_URL + '/api/v1/engines'
+        }
+    
+        const api_endpoint_url = api_url + '/' + values.model + '/text'
+    
+        const requestBody = {
+            selection_criteria: values.selection_criteria,
+            model: values.model,
+        }
+        const response = await fetch(api_endpoint_url, {
+            method: 'POST',
+            body: JSON.stringify(requestBody),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+        const data: PredictionCandidate[] = await response.json()
+        setData(data)
+    }
+    
+    const onFinish = async (values: any) => {
+        console.log('Received values of form: ', values)
+        let response = await evaluateCandidates(values)
+        console.log(response)
+    }
     return (
         <Flex justify="center" align="center" vertical>
             <Card

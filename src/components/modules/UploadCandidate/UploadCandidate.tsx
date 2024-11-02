@@ -1,17 +1,8 @@
-import React from 'react'
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
 import { Button, Card, Flex, Form, Input, Select, Space, Upload } from 'antd'
-import { API_URL } from '../../../constants'
-
-const contentStyle: React.CSSProperties = {
-    margin: 0,
-    minHeight: '100%',
-    height: '100%',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
-}
+import { LOCAL, LOCAL_API_URL, API_URL } from '../../../constants'
+import { PredictionCandidate } from "../CandidateScores/CandidateScores";
+import { useDataContext } from '../../MainLayout/MainLayout';
 
 const { Option } = Select
 
@@ -20,37 +11,57 @@ const formItemLayout = {
     wrapperCol: { span: 14 },
 }
 
-const uploadCandidates = async (values: any) => {
-    const api_endpoint_url = API_URL + '/api/v1/candidates'
-    const requestBody = {
-        selection_criteria: values.selection_criteria,
-        model: values.model,
-    }
-    const response = await fetch(api_endpoint_url, {
-        method: 'POST',
-        body: JSON.stringify(requestBody),
-        headers: {
-            'Content-Type': 'application/json',
-        },
-    })
-    const data = await response.json()
-    return data
-}
-
-const normFile = (e: any) => {
-    console.log('Upload event:', e)
-    if (Array.isArray(e)) {
-        return e
-    }
-    return e?.fileList
-}
-
-const onFinish = (values: any) => {
-    console.log('Received values of form: ', values)
-    uploadCandidates(values)
-}
-
 export function UploadCandidate() {
+    const {setData} = useDataContext()
+    
+    const uploadCandidates = async (values: any) => {
+        var api_url = API_URL + '/api/v1/engines'
+        if (LOCAL === true) {
+            api_url = LOCAL_API_URL + '/api/v1/engines'
+        }
+    
+        const api_endpoint_url = api_url + `/${values.model}/files`
+        
+        let formData = new FormData();
+        if (values.upload_candidate.length > 0){
+            for (let i = 0; i < values.upload_candidate.length; i++) {
+                let file = values.upload_candidate[i].originFileObj;
+                formData.append('files', file);
+            }
+        }
+    
+        if (values.dragger?.length > 0){
+            for (let i = 0; i < values.dragger.length; i++) {
+                let file = values.dragger[i].originFileObj;
+                formData.append('files', file);
+            }
+        }
+    
+        
+    
+        const response = await fetch(api_endpoint_url, {
+            method: 'POST',
+            body: formData,
+        })
+        const data: PredictionCandidate[] = await response.json()
+        setData(data)
+        
+    }
+    
+    const normFile = (e: any) => {
+        console.log('Upload event:', e)
+        if (Array.isArray(e)) {
+            return e
+        }
+        return e?.fileList
+    }
+    
+    const onFinish = async (values: any) => {
+        console.log('Received values of form: ', values)
+        let response_data = await uploadCandidates(values)
+        console.log(response_data)
+    }
+
     return (
         <Flex justify="center" align="center" vertical>
             <Card

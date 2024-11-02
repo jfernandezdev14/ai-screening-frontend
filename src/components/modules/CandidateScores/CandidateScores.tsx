@@ -1,21 +1,44 @@
-import React from 'react'
 import { Table, Tag, Space, Layout } from 'antd'
 import type { TableProps } from 'antd'
+import { useDataContext } from '../../MainLayout/MainLayout';
 
-interface DataType {
-    key: string
-    name: string
-    age: number
-    address: string
-    tags: string[]
+export interface PredictionCandidate {
+    candidate_profile: string;
+    disqualified: number;
+    educations: string;
+    experiences: string;
+    headline: string;
+    job_title: string;
+    keywords: string;
+    name: string;
+    normalized_prediction_score: number;
+    prediction: number;
+    similarity_score: number;
+    skills: string;
+    summary: string;
 }
 
-const columns: TableProps<DataType>['columns'] = [
+const columns: TableProps<PredictionCandidate>['columns'] = [
     {
         title: 'Candidate',
-        dataIndex: 'candidate',
+        dataIndex: 'name',
         key: 'candidate',
         render: (text) => <a>{text}</a>,
+    },
+    {
+        title: 'Headline',
+        dataIndex: 'headline',
+        key: 'headline',
+    },
+    {
+        title: 'Summary',
+        dataIndex: 'summary',
+        key: 'summary',
+    },
+    {
+        title: 'Keywords',
+        dataIndex: 'keywords',
+        key: 'keywords',
     },
     {
         title: 'Skills',
@@ -23,37 +46,38 @@ const columns: TableProps<DataType>['columns'] = [
         key: 'skills',
     },
     {
-        title: 'Experience',
-        dataIndex: 'experience',
-        key: 'experience',
+        title: 'Experiences',
+        dataIndex: 'experiences',
+        key: 'experiences',
     },
     {
-        title: 'Education',
-        dataIndex: 'education',
-        key: 'education',
+        title: 'Educations',
+        dataIndex: 'educations',
+        key: 'educations',
     },
     {
-        title: 'Certifications',
-        dataIndex: 'certifications',
-        key: 'certifications',
+        title: 'Similarity Score',
+        dataIndex: 'similarity_score',
+        key: 'similarity_score',
     },
 
     {
-        title: 'Scores',
-        key: 'scores',
-        dataIndex: 'scores',
-        
-    }
+        title: 'Qualification Score Percentage',
+        key: 'normalized_prediction_score',
+        dataIndex: 'normalized_prediction_score',
+    },
 ]
 
-const data: DataType[] = []
 
-export function CandidateScores() {
+
+export function CandidateScores( ) {
+    const {data} = useDataContext()
+
     return (
         <Layout style={{ minHeight: '100%', height: '100%' }}>
-            <Table<DataType> columns={columns} dataSource={data} bordered />
+            <Table<PredictionCandidate> columns={columns} dataSource={data} bordered pagination={{}} scroll={{y:1000}} size="small" />
         </Layout>
-)
+    )
 }
 
 export default CandidateScores

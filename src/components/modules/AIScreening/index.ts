@@ -1,1 +1,1 @@
-export { default as AIScreening } from './AIScreening';
+export { default as AIScreening } from './AIScreening'
