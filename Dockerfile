@@ -10,6 +10,9 @@ WORKDIR /usr/src/app
 # Copying this separately prevents re-running npm install on every code change.
 COPY package*.json ./
 
+EXPOSE 80
+ENV NODE_ENV=production
+
 # Install production dependencies.
 RUN npm install --omit=dev
 
@@ -17,4 +20,4 @@ RUN npm install --omit=dev
 COPY . ./
 
 # Run the web service on container startup.
-CMD [ "npm", "start" ]
+CMD [ "npm", "run", "build"]

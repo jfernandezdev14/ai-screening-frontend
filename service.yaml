@@ -6,9 +6,10 @@ kind: Service
 metadata:
     name: ai-screening-frontend
 spec:
-    type: LoadBalancer
+    type: NodePort
     selector:
         app: ai-screening-frontend
     ports:
-        - port: 80
-          targetPort: 3000
+      - port: 8080
+        protocol: TCP
+        targetPort: 8080
