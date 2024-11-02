@@ -31,7 +31,7 @@ Ensure you have the following installed:
 
     ```bash
     git clone https://github.com/jfernandezdev14/ai-screening-frontend.git
-    cd ai-screening-api
+    cd ai-screening-frontend
     ```
 
 2. **Install dependencies:**
