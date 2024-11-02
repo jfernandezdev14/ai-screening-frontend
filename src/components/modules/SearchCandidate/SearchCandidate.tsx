@@ -6,16 +6,16 @@ import { PredictionCandidate } from '../CandidateScores/CandidateScores'
 const { Option } = Select
 
 export function SearchCandidate() {
-    const {setData} = useDataContext()
+    const { setData } = useDataContext()
 
     const evaluateCandidates = async (values: any) => {
         var api_url = API_URL + '/api/v1/engines'
-        if (LOCAL === true) {
+        if (LOCAL) {
             api_url = LOCAL_API_URL + '/api/v1/engines'
         }
-    
+
         const api_endpoint_url = api_url + '/' + values.model + '/text'
-    
+
         const requestBody = {
             selection_criteria: values.selection_criteria,
             model: values.model,
@@ -30,7 +30,7 @@ export function SearchCandidate() {
         const data: PredictionCandidate[] = await response.json()
         setData(data)
     }
-    
+
     const onFinish = async (values: any) => {
         console.log('Received values of form: ', values)
         let response = await evaluateCandidates(values)

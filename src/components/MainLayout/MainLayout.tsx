@@ -25,16 +25,17 @@ const layoutStyle = {
     maxHeight: 'calc(100vh)',
 }
 
-const predictionList: PredictionCandidate[] = new Array() as PredictionCandidate[]
+const predictionList: PredictionCandidate[] =
+    new Array() as PredictionCandidate[]
 
 export type DataContent = {
     data: PredictionCandidate[]
-    setData:(c: PredictionCandidate[]) => void
-  }
+    setData: (c: PredictionCandidate[]) => void
+}
 export const DataContext = createContext<DataContent>({
     data: predictionList,
-    setData: () => {}
-  });
+    setData: () => {},
+})
 
 export const useDataContext = () => useContext(DataContext)
 
@@ -50,51 +51,53 @@ export function MainLayout() {
 
     return (
         <ThemeContext.Provider value={themeC}>
-            <DataContext.Provider value={{data, setData}}>
-            <Row>
-                <Col span={24}>
-                    <Layout style={layoutStyle} hasSider>
-                        <Flex vertical>
-                            <SideBar
-                                collapsed={collapsed}
-                                current={current}
-                                setCurrent={setCurrent}
-                            ></SideBar>
-                        </Flex>
-                        <Layout style={{ minHeight: '100%', height: '100%' }}>
-                            <MainHeader
-                                colorBgContainer={themeC}
-                                collapsed={collapsed}
-                                setCollapsed={setCollapsed}
-                            />
-                            <Content style={{ margin: '0 16px' }}>
-                                <Breadcrumb
-                                    style={{ margin: '16px 0' }}
-                                    items={breadCrumbsItems.get(current)}
+            <DataContext.Provider value={{ data, setData }}>
+                <Row>
+                    <Col span={24}>
+                        <Layout style={layoutStyle} hasSider>
+                            <Flex vertical>
+                                <SideBar
+                                    collapsed={collapsed}
+                                    current={current}
+                                    setCurrent={setCurrent}
+                                ></SideBar>
+                            </Flex>
+                            <Layout
+                                style={{ minHeight: '100%', height: '100%' }}
+                            >
+                                <MainHeader
+                                    colorBgContainer={themeC}
+                                    collapsed={collapsed}
+                                    setCollapsed={setCollapsed}
                                 />
-                                <Layout>
-                                    <div
-                                        style={{
-                                            padding: 24,
-                                            minHeight: '100%',
-                                            height: 'calc(100%)',
-                                            background: themeC,
-                                            borderRadius: borderRadiusLG,
-                                        }}
-                                    >
-                                        {componentsItemsView.get(current)}
-                                    </div>
-                                </Layout>
-                            </Content>
-                            <Footer style={{ textAlign: 'center' }}>
-                                AI Screening System ©{new Date().getFullYear()}
-                            </Footer>
+                                <Content style={{ margin: '0 16px' }}>
+                                    <Breadcrumb
+                                        style={{ margin: '16px 0' }}
+                                        items={breadCrumbsItems.get(current)}
+                                    />
+                                    <Layout>
+                                        <div
+                                            style={{
+                                                padding: 24,
+                                                minHeight: '100%',
+                                                height: 'calc(100%)',
+                                                background: themeC,
+                                                borderRadius: borderRadiusLG,
+                                            }}
+                                        >
+                                            {componentsItemsView.get(current)}
+                                        </div>
+                                    </Layout>
+                                </Content>
+                                <Footer style={{ textAlign: 'center' }}>
+                                    AI Screening System ©
+                                    {new Date().getFullYear()}
+                                </Footer>
+                            </Layout>
                         </Layout>
-                    </Layout>
-                </Col>
-            </Row>
+                    </Col>
+                </Row>
             </DataContext.Provider>
-            
         </ThemeContext.Provider>
     )
 }

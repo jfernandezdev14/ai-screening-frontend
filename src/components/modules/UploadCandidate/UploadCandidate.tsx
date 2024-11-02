@@ -1,8 +1,8 @@
 import { InboxOutlined, UploadOutlined } from '@ant-design/icons'
 import { Button, Card, Flex, Form, Input, Select, Space, Upload } from 'antd'
 import { LOCAL, LOCAL_API_URL, API_URL } from '../../../constants'
-import { PredictionCandidate } from "../CandidateScores/CandidateScores";
-import { useDataContext } from '../../MainLayout/MainLayout';
+import { PredictionCandidate } from '../CandidateScores/CandidateScores'
+import { useDataContext } from '../../MainLayout/MainLayout'
 
 const { Option } = Select
 
@@ -12,42 +12,39 @@ const formItemLayout = {
 }
 
 export function UploadCandidate() {
-    const {setData} = useDataContext()
-    
+    const { setData } = useDataContext()
+
     const uploadCandidates = async (values: any) => {
         var api_url = API_URL + '/api/v1/engines'
-        if (LOCAL === true) {
+        if (LOCAL) {
             api_url = LOCAL_API_URL + '/api/v1/engines'
         }
-    
+
         const api_endpoint_url = api_url + `/${values.model}/files`
-        
-        let formData = new FormData();
-        if (values.upload_candidate.length > 0){
+
+        let formData = new FormData()
+        if (values.upload_candidate.length > 0) {
             for (let i = 0; i < values.upload_candidate.length; i++) {
-                let file = values.upload_candidate[i].originFileObj;
-                formData.append('files', file);
+                let file = values.upload_candidate[i].originFileObj
+                formData.append('files', file)
             }
         }
-    
-        if (values.dragger?.length > 0){
+
+        if (values.dragger?.length > 0) {
             for (let i = 0; i < values.dragger.length; i++) {
-                let file = values.dragger[i].originFileObj;
-                formData.append('files', file);
+                let file = values.dragger[i].originFileObj
+                formData.append('files', file)
             }
         }
-    
-        
-    
+
         const response = await fetch(api_endpoint_url, {
             method: 'POST',
             body: formData,
         })
         const data: PredictionCandidate[] = await response.json()
         setData(data)
-        
     }
-    
+
     const normFile = (e: any) => {
         console.log('Upload event:', e)
         if (Array.isArray(e)) {
@@ -55,7 +52,7 @@ export function UploadCandidate() {
         }
         return e?.fileList
     }
-    
+
     const onFinish = async (values: any) => {
         console.log('Received values of form: ', values)
         let response_data = await uploadCandidates(values)

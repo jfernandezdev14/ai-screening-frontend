@@ -1,12 +1,10 @@
-import {  createContext, useContext, useState } from 'react'
+import { createContext, useContext, useState } from 'react'
 import { Splitter, Layout, Space } from 'antd'
 import { CandidateScores } from '../CandidateScores'
 import { UploadCandidate } from '../UploadCandidate'
 import { SearchCandidate } from '../SearchCandidate'
 
-
 export function AIScreening(): JSX.Element {
-
     return (
         <Layout style={{ minHeight: '100%', height: '100%' }}>
             <Splitter
@@ -24,13 +22,11 @@ export function AIScreening(): JSX.Element {
                     >
                         <SearchCandidate />
 
-                        <UploadCandidate/>
+                        <UploadCandidate />
                     </Space>
                 </Splitter.Panel>
                 <Splitter.Panel>
-                    <CandidateScores
-
-                     />
+                    <CandidateScores />
                 </Splitter.Panel>
             </Splitter>
         </Layout>
